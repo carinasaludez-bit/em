@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Love Letter 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #ffd1dc, #ff9ebc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Floating hearts (background) */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 22px;
+    animation: rise 8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.6); opacity: 0; }
+}
+
+/* Explosion hearts */
+.explode {
+    position: absolute;
+    font-size: 24px;
+    animation: explode 1.2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes explode {
+    from {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translate(var(--x), var(--y)) scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* Card */
+.card {
+    background: linear-gradient(to bottom, #fff0f6, #ffe3ed);
+    padding: 28px 24px;
+    border-radius: 26px;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(255, 77, 154, 0.35);
+    z-index: 2;
+    animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: #ff3f8b;
+}
+
+p {
+    color: #6b1f3a;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Button */
+button {
+    background: linear-gradient(to right, #ff4f9a, #ff85c2);
+    border: none;
+    color: white;
+    padding: 13px 22px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 14px;
+    box-shadow: 0 8px 20px rgba(255, 79, 154, 0.5);
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+    <h1>To My Love 💗</h1>
+
+    <p>
+        Hi <strong>HER NAME HERE</strong>,<br><br>
+        I made this little page with all my heart.
+        If I ever made you feel hurt, ignored, or sad,
+        please know it was never my intention.
+    </p>
+
+    <p>
+        I’m still learning, still growing,
+        but loving you has always been real.
+    </p>
+
+    <p>
+        <strong>— YOUR NAME HERE</strong><br>
+        <small>February 14, 2026</small>
+    </p>
+
+    <button onclick="sorryExplosion(this)">
+        I’m sorry 💗
+    </button>
+</div>
+
+<script>
+// Background floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+    heart.style.fontSize = (18 + Math.random() * 14) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+}
+setInterval(createHeart, 350);
+
+// Button heart explosion + sorry message
+function sorryExplosion(btn) {
+    const rect = btn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "explode";
+        heart.innerHTML = "💗";
+        heart.style.left = centerX + "px";
+        heart.style.top = centerY + "px";
+        heart.style.setProperty("--x", (Math.random() * 300 - 150) + "px");
+        heart.style.setProperty("--y", (Math.random() * -300) + "px");
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 1200);
+    }
+
+    setTimeout(() => {
+        alert(
+            "I’m really sorry if I ever hurt you.\n" +
+            "You mean so much to me,\n" +
+            "and I promise to do better — always. 💗"
+        );
+    }, 500);
+}
+</script>
+
+</body>
+</html>
